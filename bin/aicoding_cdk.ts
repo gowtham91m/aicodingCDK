@@ -1,40 +1,50 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { AicodingCdkStack } from '../lib/aicoding_cdk-stack';
+import { HelloWorldStack } from '../lib/hello-world-stack';
+import { GeminiStack } from '../lib/gemini-stack';
 import { PipelineStack } from '../lib/pipeline-stack';
 
 const app = new cdk.App();
 
-// For direct deployment without pipeline
-new AicodingCdkStack(app, 'AicodingCdkStack', {
-  /* Configure the stack to deploy to the specified AWS account */
-  env: { 
-    account: '049586541010', 
-    region: 'us-east-1'
-  },
-  
-  /* Add stack description */
-  description: 'Hello World Lambda function deployed with CDK',
-  
-  /* Add tags for better resource management */
+// Environment configuration
+const env = { 
+  account: '049586541010', 
+  region: 'us-east-1'
+};
+
+// Common tags
+const commonTags = {
+  Environment: 'Development',
+  ManagedBy: 'CDK'
+};
+
+// Deploy Hello World Stack
+new HelloWorldStack(app, 'HelloWorldStack', {
+  env: env,
+  description: 'Hello World Lambda function with API Gateway',
   tags: {
-    Environment: 'Development',
+    ...commonTags,
     Project: 'HelloWorldLambda',
-    ManagedBy: 'CDK'
+  }
+});
+
+// Deploy Gemini Stack
+new GeminiStack(app, 'GeminiStack', {
+  env: env,
+  description: 'Gemini API Lambda function with API Gateway',
+  tags: {
+    ...commonTags,
+    Project: 'GeminiLambda',
   }
 });
 
 // For deployment via pipeline
 new PipelineStack(app, 'AicodingCdkPipelineStack', {
-  env: { 
-    account: '049586541010', 
-    region: 'us-east-1'
-  },
-  description: 'CI/CD Pipeline for the Hello World Lambda function',
+  env: env,
+  description: 'CI/CD Pipeline for the Lambda functions',
   tags: {
-    Environment: 'Development',
-    Project: 'HelloWorldLambda',
-    ManagedBy: 'CDK'
+    ...commonTags,
+    Project: 'LambdaPipeline',
   }
 });

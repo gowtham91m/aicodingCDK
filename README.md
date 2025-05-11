@@ -1,14 +1,15 @@
 # Lambda CDK Project with Hello World and Gemini API
 
-This project contains an AWS CDK application that deploys two Lambda functions:
+This project contains an AWS CDK application that deploys two Lambda functions as separate stacks:
 1. A simple Hello World function with API Gateway integration
 2. A Google Gemini API integration function
 3. A CI/CD pipeline for automated deployment
 
 ## Project Structure
 
-- `lib/aicoding_cdk-stack.ts`: Main application stack with Lambda functions and API Gateway
-- `lib/pipeline-stack.ts`: CI/CD pipeline stack using AWS CodePipeline and CodeCommit
+- `lib/hello-world-stack.ts`: Stack for Hello World Lambda function with API Gateway
+- `lib/gemini-stack.ts`: Stack for Gemini API Lambda function with API Gateway
+- `lib/pipeline-stack.ts`: CI/CD pipeline stack using AWS CodePipeline with GitHub integration
 - `lambda/hello-world/index.ts`: Hello World Lambda function code
 - `lambda/gemini-function/index.ts`: Gemini API Lambda function code
 - `bin/aicoding_cdk.ts`: Entry point for the CDK application
@@ -72,33 +73,50 @@ npm run sam:build
 
 ### Option 1: Direct Deployment
 
-To deploy the application stack directly:
+To deploy the application stacks directly:
 
 ```bash
 # Build the project
 npm run build
 
-# Deploy the application stack
-npx cdk deploy AicodingCdkStack
+# Deploy individual stacks
+npx cdk deploy HelloWorldStack  # Deploy only the Hello World stack
+npx cdk deploy GeminiStack      # Deploy only the Gemini stack
+
+# Or deploy all stacks
+npx cdk deploy --all
 ```
 
-### Option 2: Deploy via CI/CD Pipeline
+### Option 2: Deploy via CI/CD Pipeline with GitHub
 
-To set up the CI/CD pipeline:
+To set up the CI/CD pipeline with GitHub:
 
-```bash
-# Build the project
-npm run build
+1. Create a GitHub connection in the AWS Console:
+   - Go to AWS Console > Developer Tools > Settings > Connections
+   - Click "Create connection"
+   - Select "GitHub" as the provider
+   - Follow the prompts to connect to your GitHub account
+   - Note the connection ARN after it's created
 
-# Deploy the pipeline stack
-npx cdk deploy AicodingCdkPipelineStack
-```
+2. Update the connection ARN in the pipeline stack:
+   - Open `lib/pipeline-stack.ts`
+   - Replace the placeholder connection ARN with your actual connection ARN
+   - Update the GitHub owner and repository name to match your GitHub repository
+
+3. Deploy the pipeline stack:
+   ```bash
+   # Build the project
+   npm run build
+
+   # Deploy the pipeline stack
+   npx cdk deploy AicodingCdkPipelineStack
+   ```
 
 After deploying the pipeline stack:
 
-1. Clone the CodeCommit repository using the URL from the stack outputs
-2. Push your code to the repository
-3. The pipeline will automatically deploy the application
+1. The pipeline will automatically trigger when you push changes to your GitHub repository
+2. You can monitor the pipeline in the AWS Console > CodePipeline
+3. The pipeline will automatically deploy both Lambda functions
 
 ## API Endpoints
 
@@ -107,20 +125,22 @@ After deployment, the API Gateway endpoints will be available in the stack outpu
 ### Hello World Endpoint
 
 ```
-https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/hello
+https://{hello-world-api-id}.execute-api.us-east-1.amazonaws.com/prod/hello
 ```
 
 ### Gemini API Endpoint
 
 ```
-https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini
+https://{gemini-api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini
 ```
+
+Note: Each Lambda function now has its own dedicated API Gateway, so the API IDs will be different.
 
 To use the Gemini API endpoint, send a POST request with a JSON body containing a prompt:
 
 ```bash
 curl -X POST \
-  https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini \
+  https://{gemini-api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini \
   -H 'Content-Type: application/json' \
   -d '{"prompt":"What are the key benefits of using AWS Lambda for serverless computing?"}'
 ```
