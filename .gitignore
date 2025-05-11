@@ -12,6 +12,9 @@ node_modules
 .npm
 package-lock.json
 
+# Ignore environment variables
+.env
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out
@@ -36,3 +39,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+env.json
+
+# Lambda function node_modules
+lambda/*/node_modules

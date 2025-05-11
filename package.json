@@ -10,9 +10,11 @@
     "test": "jest",
     "cdk": "cdk",
     "build:lambda": "node scripts/build-lambda.js && node scripts/copy-lambda.js",
+    "build:gemini": "node scripts/build-gemini.js && node scripts/copy-gemini.js",
     "sam:build": "npm run build:lambda && sam build",
-    "sam:local": "npm run build:lambda && sam local start-api",
-    "sam:invoke": "npm run build:lambda && sam local invoke HelloWorldFunction -e events/api-gateway-event.json"
+    "sam:local": "npm run build:lambda && npm run build:gemini && sam local start-api --env-vars env.json",
+    "sam:invoke": "npm run build:lambda && sam local invoke HelloWorldFunction -e events/api-gateway-event.json",
+    "sam:gemini": "npm run build:gemini && sam local invoke GeminiFunction -e events/gemini-event.json --env-vars env.json"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.149",
@@ -26,6 +28,7 @@
     "typescript": "~5.4.3"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "aws-cdk-lib": "2.137.0",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"

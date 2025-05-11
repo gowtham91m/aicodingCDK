@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: SAM template for local testing of Hello World Lambda function
+Description: SAM template for local testing of Lambda functions
 
 Resources:
   HelloWorldFunction:
@@ -17,3 +17,23 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+            
+  GeminiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./lambda/gemini-function/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          GEMINI_API_KEY: your-api-key-here
+      Events:
+        Gemini:
+          Type: Api
+          Properties:
+            Path: /gemini
+            Method: post

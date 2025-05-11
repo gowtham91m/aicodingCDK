@@ -56,11 +56,52 @@ export class AicodingCdkStack extends cdk.Stack {
       exportName: 'HelloWorldFunctionArn',
     });
 
+    // Define the Gemini Lambda function
+    const geminiFunction = new nodejs.NodejsFunction(this, 'GeminiFunction', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'handler',
+      entry: path.join(__dirname, '../lambda/gemini-function/index.ts'),
+      bundling: {
+        minify: true,
+        sourceMap: true,
+        esbuildArgs: {
+          '--packages': 'bundle'
+        },
+      },
+      description: 'A Lambda function that uses Google Gemini API',
+      timeout: cdk.Duration.seconds(60),
+      memorySize: 256,
+      environment: {
+        NODE_OPTIONS: '--enable-source-maps',
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY || 'your-api-key-here', // Replace with your actual API key or use environment variable
+      },
+    });
+
+    // Create a resource and method to invoke the Gemini function
+    const geminiResource = api.root.addResource('gemini');
+    geminiResource.addMethod('POST', new apigateway.LambdaIntegration(geminiFunction, {
+      proxy: true,
+    }));
+
+    // Output the Lambda function ARN
+    new cdk.CfnOutput(this, 'GeminiFunctionArn', {
+      value: geminiFunction.functionArn,
+      description: 'The ARN of the Gemini Lambda function',
+      exportName: 'GeminiFunctionArn',
+    });
+
     // Output the API Gateway URL
     new cdk.CfnOutput(this, 'ApiEndpoint', {
       value: `${api.url}hello`,
       description: 'The URL of the Hello World API endpoint',
       exportName: 'HelloWorldApiEndpoint',
+    });
+
+    // Output the Gemini API Gateway URL
+    new cdk.CfnOutput(this, 'GeminiApiEndpoint', {
+      value: `${api.url}gemini`,
+      description: 'The URL of the Gemini API endpoint',
+      exportName: 'GeminiApiEndpoint',
     });
   }
 }

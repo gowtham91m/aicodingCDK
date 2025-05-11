@@ -1,0 +1,34 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /gemini",
+  "rawPath": "/gemini",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "content-type": "application/json",
+    "host": "localhost:3000",
+    "user-agent": "curl/7.64.1",
+    "x-forwarded-proto": "http",
+    "x-forwarded-port": "3000"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "apiId": "1234567890",
+    "domainName": "localhost:3000",
+    "domainPrefix": "localhost",
+    "http": {
+      "method": "POST",
+      "path": "/gemini",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "127.0.0.1",
+      "userAgent": "curl/7.64.1"
+    },
+    "requestId": "request-id",
+    "routeKey": "POST /gemini",
+    "stage": "$default",
+    "time": "03/Oct/2023:18:18:01 +0000",
+    "timeEpoch": 1633286281
+  },
+  "body": "{\"prompt\":\"What are the key benefits of using AWS Lambda for serverless computing?\"}",
+  "isBase64Encoded": false
+}
