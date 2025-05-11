@@ -112,6 +112,8 @@ To set up the CI/CD pipeline with GitHub:
    npx cdk deploy AicodingCdkPipelineStack
    ```
 
+   Note: The pipeline is already configured to use the GitHub repository at `gowtham91m/aicodingCDK`. If you're using a different repository, update the `githubOwner` and `githubRepo` variables in `lib/pipeline-stack.ts`.
+
 After deploying the pipeline stack:
 
 1. The pipeline will automatically trigger when you push changes to your GitHub repository

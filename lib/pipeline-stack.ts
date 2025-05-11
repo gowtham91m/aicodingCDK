@@ -25,7 +25,7 @@ export class PipelineStack extends cdk.Stack {
           connectionArn: 'arn:aws:codestar-connections:us-east-1:049586541010:connection/1c246387-1a8d-4e0b-a6a4-d531a8dc980a', 
         }),
         installCommands: [
-          'npm ci',
+          'npm install',
         ],
         commands: [
           'npm run build',
