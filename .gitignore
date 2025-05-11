@@ -1,0 +1,38 @@
+# Compiled JavaScript files
+*.js
+!jest.config.js
+*.d.ts
+lambda/hello-world/dist/*.js
+lambda/hello-world/dist/*.js.map
+lambda/hello-world/dist/*.d.ts
+!lambda/hello-world/dist/.gitkeep
+
+# Dependencies
+node_modules
+.npm
+package-lock.json
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
