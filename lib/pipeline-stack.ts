@@ -2,7 +2,6 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
-import { HelloWorldStack } from './hello-world-stack';
 import { GeminiStack } from './gemini-stack';
 
 export class PipelineStack extends cdk.Stack {
@@ -64,11 +63,6 @@ export class PipelineStack extends cdk.Stack {
 class DeployStage extends cdk.Stage {
   constructor(scope: Construct, id: string, props?: cdk.StageProps) {
     super(scope, id, props);
-
-    // Create the Hello World stack in this stage
-    new HelloWorldStack(this, 'HelloWorldStack', {
-      env: props?.env,
-    });
 
     // Create the Gemini stack in this stage
     new GeminiStack(this, 'GeminiStack', {

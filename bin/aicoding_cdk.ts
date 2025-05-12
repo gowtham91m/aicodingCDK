@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { HelloWorldStack } from '../lib/hello-world-stack';
 import { GeminiStack } from '../lib/gemini-stack';
 import { PipelineStack } from '../lib/pipeline-stack';
 
@@ -18,16 +17,6 @@ const commonTags = {
   Environment: 'Development',
   ManagedBy: 'CDK'
 };
-
-// Deploy Hello World Stack
-new HelloWorldStack(app, 'HelloWorldStack', {
-  env: env,
-  description: 'Hello World Lambda function with API Gateway',
-  tags: {
-    ...commonTags,
-    Project: 'HelloWorldLambda',
-  }
-});
 
 // Deploy Gemini Stack
 new GeminiStack(app, 'GeminiStack', {
