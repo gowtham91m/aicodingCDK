@@ -4,6 +4,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as path from 'path';
+import * as process from 'process';
 
 export class GeminiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -94,18 +95,18 @@ export class GeminiStack extends cdk.Stack {
       },
     ];
 
-    // Output the Lambda function ARN
+    // Output the Lambda function ARN with a unique export name based on the stack ID
     new cdk.CfnOutput(this, 'GeminiFunctionArn', {
       value: geminiFunction.functionArn,
       description: 'The ARN of the Gemini Lambda function',
-      exportName: 'GeminiStack-FunctionArn',
+      exportName: `${this.stackName}-FunctionArn`,
     });
 
-    // Output the API Gateway URL
+    // Output the API Gateway URL with a unique export name based on the stack ID
     new cdk.CfnOutput(this, 'ApiEndpoint', {
       value: `${api.url}gemini`,
       description: 'The URL of the Gemini API endpoint',
-      exportName: 'GeminiStack-ApiEndpoint',
+      exportName: `${this.stackName}-ApiEndpoint`,
     });
   }
 }

@@ -2,13 +2,15 @@
   "name": "aicoding_cdk",
   "version": "0.1.0",
   "bin": {
-    "aicoding_cdk": "bin/aicoding_cdk.js"
+    "aicoding_cdk": "dist/bin/aicoding_cdk.js"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "npx tsc",
+    "watch": "npx tsc -w",
     "test": "jest",
-    "cdk": "cdk",
+    "cdk": "npx cdk",
+    "clean": "rm -rf dist/*",
+    "rebuild": "npm run clean && npm run build",
     "build:lambda": "node scripts/build-lambda.js && node scripts/copy-lambda.js",
     "build:gemini": "node scripts/build-gemini.js && node scripts/copy-gemini.js",
     "sam:build": "npm run build:lambda && sam build",

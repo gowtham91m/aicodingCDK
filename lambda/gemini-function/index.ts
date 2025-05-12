@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
+import * as process from 'process';
 
 // Initialize the Google Generative AI with an API key
 // In a production environment, this should be stored in AWS Secrets Manager or Parameter Store

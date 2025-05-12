@@ -7,6 +7,10 @@ lambda/hello-world/dist/*.js.map
 lambda/hello-world/dist/*.d.ts
 !lambda/hello-world/dist/.gitkeep
 
+# Output directory
+dist/
+!dist/.gitkeep
+
 # Dependencies
 node_modules
 .npm

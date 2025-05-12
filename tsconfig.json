@@ -6,6 +6,10 @@
       "es2020",
       "dom"
     ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -20,6 +24,8 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "outDir": "./dist",
+    "rootDir": "./",
     "typeRoots": [
       "./node_modules/@types"
     ]
