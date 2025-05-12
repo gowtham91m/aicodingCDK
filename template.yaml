@@ -37,3 +37,9 @@ Resources:
           Properties:
             Path: /gemini
             Method: post
+            Cors:
+              AllowOrigin: "'https://interactivelearning.io,http://localhost:3000'"
+              AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              AllowMethods: "'POST,OPTIONS'"
+              AllowCredentials: true
+              MaxAge: 300

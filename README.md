@@ -138,11 +138,16 @@ https://{gemini-api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini
 
 Note: Each Lambda function now has its own dedicated API Gateway, so the API IDs will be different.
 
+The Gemini API has CORS configured to only allow requests from `https://interactivelearning.io`. This means:
+- Only requests from this domain will be accepted
+- Only POST and OPTIONS methods are allowed
+- Credentials are allowed (for cookies/authentication)
+
 To use the Gemini API endpoint, send a POST request with a JSON body containing a prompt:
 
 ```bash
 curl -X POST \
-  https://{gemini-api-id}.execute-api.us-east-1.amazonaws.com/prod/gemini \
+  https://h87uc5g579.execute-api.us-east-1.amazonaws.com/prod/gemini \
   -H 'Content-Type: application/json' \
   -d '{"prompt":"What are the key benefits of using AWS Lambda for serverless computing?"}'
 ```

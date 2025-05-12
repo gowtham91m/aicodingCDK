@@ -10,14 +10,43 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
   console.log('Event: ', JSON.stringify(event, null, 2));
   console.log('Context: ', JSON.stringify(context, null, 2));
   
+  // Define allowed origins
+  const allowedOrigins = ['https://interactivelearning.io', 'http://localhost:3000'];
+  
+  // Get the request origin
+  const origin = event.headers.origin || event.headers.Origin;
+  
+  // Use the actual origin if it's allowed, otherwise use the first allowed origin
+  const responseOrigin = origin && allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  
+  // Handle OPTIONS request (CORS preflight)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': responseOrigin,
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Max-Age': '300', // Cache preflight request for 5 minutes
+      },
+      body: '',
+    };
+  }
+  
   try {
+    
     // Check if API key is provided
     if (!API_KEY) {
       return {
         statusCode: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': responseOrigin,
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token',
+      },
         body: JSON.stringify({
           message: 'Gemini API key is not configured',
           error: 'MISSING_API_KEY',
@@ -62,6 +91,10 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': responseOrigin,
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token',
       },
       body: JSON.stringify({
         message: 'Successfully generated content with Gemini API',
@@ -78,6 +111,10 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': responseOrigin,
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token',
       },
       body: JSON.stringify({
         message: 'Error generating content with Gemini API',
