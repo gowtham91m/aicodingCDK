@@ -1,0 +1,11 @@
+{
+  "httpMethod": "POST",
+  "path": "/tts",
+  "headers": {
+    "Content-Type": "application/json",
+    "Origin": "http://localhost:3000"
+  },
+  "queryStringParameters": null,
+  "body": "{\"text\":\"Hello, this is a test of the text-to-speech functionality.\",\"voice\":\"en-US-Standard-A\"}",
+  "isBase64Encoded": false
+}

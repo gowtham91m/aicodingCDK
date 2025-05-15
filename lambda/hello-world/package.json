@@ -1,0 +1,7 @@
+{
+  "name": "hello-world-function",
+  "version": "1.0.0",
+  "description": "Simple Hello World Lambda function",
+  "main": "index.js",
+  "dependencies": {}
+}

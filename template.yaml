@@ -3,21 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: SAM template for local testing of Lambda functions
 
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./lambda/hello-world/
-      Handler: index.handler
-      Runtime: nodejs18.x
-      Architectures:
-        - x86_64
-      Events:
-        HelloWorld:
-          Type: Api
-          Properties:
-            Path: /hello
-            Method: get
-            
   GeminiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -36,6 +21,59 @@ Resources:
           Type: Api
           Properties:
             Path: /gemini
+            Method: post
+            Cors:
+              AllowOrigin: "'https://interactivelearning.io,http://localhost:3000'"
+              AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              AllowMethods: "'POST,OPTIONS'"
+              AllowCredentials: true
+              MaxAge: 300
+              
+  TTSFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./lambda/tts-function/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          GEMINI_API_KEY: your-api-key-here
+          GOOGLE_SERVICE_ACCOUNT: '{}'
+      Events:
+        TTS:
+          Type: Api
+          Properties:
+            Path: /tts
+            Method: post
+            Cors:
+              AllowOrigin: "'https://interactivelearning.io,http://localhost:3000'"
+              AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              AllowMethods: "'POST,OPTIONS'"
+              AllowCredentials: true
+              MaxAge: 300
+              
+  OpenAIFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./lambda/openai-function/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          OPENAI_API_KEY: your-api-key-here
+      Events:
+        OpenAI:
+          Type: Api
+          Properties:
+            Path: /openai
             Method: post
             Cors:
               AllowOrigin: "'https://interactivelearning.io,http://localhost:3000'"

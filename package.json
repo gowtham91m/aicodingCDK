@@ -13,10 +13,18 @@
     "rebuild": "npm run clean && npm run build",
     "build:lambda": "node scripts/build-lambda.js && node scripts/copy-lambda.js",
     "build:gemini": "node scripts/build-gemini.js && node scripts/copy-gemini.js",
-    "sam:build": "npm run build:lambda && sam build",
-    "sam:local": "npm run build:lambda && npm run build:gemini && sam local start-api --env-vars env.json",
-    "sam:invoke": "npm run build:lambda && sam local invoke HelloWorldFunction -e events/api-gateway-event.json",
-    "sam:gemini": "npm run build:gemini && sam local invoke GeminiFunction -e events/gemini-event.json --env-vars env.json"
+    "build:tts": "node scripts/build-tts.js && node scripts/copy-tts.js",
+    "build:openai": "node scripts/build-openai.js && node scripts/copy-openai.js",
+    "build:all": "npm run build:lambda && npm run build:gemini && npm run build:tts && npm run build:openai",
+    "sam:build": "npm run build:all && sam build",
+    "sam:local": "npm run build:all && sam local start-api --env-vars env.json",
+    "sam:gemini": "npm run build:gemini && sam local invoke GeminiFunction -e events/gemini-event.json --env-vars env.json",
+    "sam:tts": "npm run build:tts && sam local invoke TTSFunction -e events/tts-event.json --env-vars env.json",
+    "sam:tts-ssml": "npm run build:tts && sam local invoke TTSFunction -e events/tts-ssml-event.json --env-vars env.json",
+    "sam:openai": "npm run build:openai && sam local invoke OpenAIFunction -e events/openai-event.json --env-vars env.json",
+    "test:tts": "node scripts/test-tts-api.js",
+    "test:tts-ssml": "node scripts/test-tts-ssml.js",
+    "test:openai": "node scripts/test-openai.js"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.149",
@@ -32,7 +40,10 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "aws-cdk-lib": "2.137.0",
+    "axios": "^1.9.0",
     "constructs": "^10.0.0",
+    "dotenv": "^16.5.0",
+    "openai": "^4.98.0",
     "source-map-support": "^0.5.21"
   }
 }

@@ -18,15 +18,6 @@ const commonTags = {
   ManagedBy: 'CDK'
 };
 
-// // Deploy Gemini Stack
-// new GeminiStack(app, 'GeminiStack', {
-//   env: env,
-//   description: 'Gemini API Lambda function with API Gateway',
-//   tags: {
-//     ...commonTags,
-//     Project: 'GeminiLambda',
-//   }
-// });
 
 // For deployment via pipeline
 new PipelineStack(app, 'AicodingCdkPipelineStack', {

@@ -3,6 +3,8 @@ import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import { GeminiStack } from './gemini-stack';
+import { TTSStack } from './tts-stack';
+import { OpenAIStack } from './openai-stack';
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -28,6 +30,7 @@ export class PipelineStack extends cdk.Stack {
         ],
         commands: [
           'npm run build',
+          'npm run build:all',  // Build all Lambda functions including TTS and OpenAI
           'npx cdk synth',
         ],
       }),
@@ -66,6 +69,16 @@ class DeployStage extends cdk.Stage {
 
     // Create the Gemini stack in this stage
     new GeminiStack(this, 'GeminiStack', {
+      env: props?.env,
+    });
+
+    // Create the TTS stack in this stage
+    new TTSStack(this, 'TTSStack', {
+      env: props?.env,
+    });
+
+    // Create the OpenAI stack in this stage
+    new OpenAIStack(this, 'OpenAIStack', {
       env: props?.env,
     });
   }

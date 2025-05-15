@@ -1,0 +1,47 @@
+{
+  "body": "{\"prompt\":\"Tell me about AWS Lambda functions\",\"systemPrompt\":\"You are a helpful assistant who specializes in cloud computing.\"}",
+  "resource": "/openai",
+  "path": "/openai",
+  "httpMethod": "POST",
+  "isBase64Encoded": false,
+  "queryStringParameters": {},
+  "pathParameters": {},
+  "stageVariables": {},
+  "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Content-Type": "application/json",
+    "Host": "localhost:3000",
+    "Origin": "http://localhost:3000",
+    "Referer": "http://localhost:3000/",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "resourceId": "123456",
+    "stage": "prod",
+    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
+    "requestTime": "09/Apr/2021:12:34:56 +0000",
+    "requestTimeEpoch": 1617971696000,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "127.0.0.1",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+      "user": null
+    },
+    "path": "/openai",
+    "resourcePath": "/openai",
+    "httpMethod": "POST",
+    "apiId": "1234567890",
+    "protocol": "HTTP/1.1"
+  }
+}

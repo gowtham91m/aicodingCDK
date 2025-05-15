@@ -1,0 +1,10 @@
+{
+  "name": "tts-function",
+  "version": "1.0.0",
+  "description": "Lambda function that uses Google Gemini API for text-to-speech",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^6.1.0",
+    "@google/generative-ai": "^0.24.1"
+  }
+}

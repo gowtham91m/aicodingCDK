@@ -1,0 +1,9 @@
+{
+  "name": "openai-function",
+  "version": "1.0.0",
+  "description": "Lambda function that uses OpenAI ChatGPT API",
+  "main": "index.js",
+  "dependencies": {
+    "openai": "^4.0.0"
+  }
+}
