@@ -5,6 +5,7 @@ import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import { GeminiStack } from './gemini-stack';
 import { TTSStack } from './tts-stack';
 import { OpenAIStack } from './openai-stack';
+import { BedrockStack } from './bedrock-stack';
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -79,6 +80,11 @@ class DeployStage extends cdk.Stage {
 
     // Create the OpenAI stack in this stage
     new OpenAIStack(this, 'OpenAIStack', {
+      env: props?.env,
+    });
+
+    // Create the Bedrock stack in this stage
+    new BedrockStack(this, 'BedrockStack', {
       env: props?.env,
     });
   }
